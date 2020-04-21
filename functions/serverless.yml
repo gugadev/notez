@@ -1,0 +1,67 @@
+service: notez
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  region: us-east-2
+functions:
+  getNotez:
+    handler: all.handle
+    events:
+      - http:
+          path: notes
+          method: get
+          cors:
+            origins:
+              - "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+  getNote:
+    handler: get.handle
+    events:
+      - http:
+          path: notes/{uid}
+          method: get
+          cors:
+            origins:
+              - "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+  createNote:
+    handler: create.handle
+    events:
+      - http:
+          path: notes
+          method: post
+          cors:
+            origins:
+              - "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+  updateNote:
+    handler: update.handle
+    events:
+      - http:
+          path: notes/{uid}
+          method: put
+          cors:
+            origins:
+              - "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+  deleteNote:
+    handler: delete.handle
+    events:
+      - http:
+          path: notes/{uid}
+          method: delete
+          cors:
+            origins:
+              - "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
