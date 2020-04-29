@@ -66,4 +66,12 @@ export const notesEpics = combineEpics(
   createNote,
   updateNote,
   removeNote
-);
+)
+
+// export const notesEpics = (action$: any) => merge(
+//   fetchNotes(action$),
+//   getNote(action$),
+//   createNote(action$),
+//   updateNote(action$),
+//   removeNote(action$)
+// );

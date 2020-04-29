@@ -3,7 +3,7 @@ import { ajax } from "rxjs/ajax";
 import { pluck } from "rxjs/operators";
 import { Note } from "./notes.state";
 
-const SERVER_URL = process.env.SERVER_URL as string;
+const SERVER_URL = process.env.REACT_APP_SERVER_URL as string;
 
 export const fetchNotes = (): Observable<Note[]> => (
   ajax.getJSON(SERVER_URL)
