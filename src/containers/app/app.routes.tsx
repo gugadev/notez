@@ -1,9 +1,16 @@
 import React from 'react';
-import { HomeContainer } from "../home/home.container";
+// @ts-ignore
+import { useRoutes } from 'react-router-dom';
+import { NotFound } from '../not-found/not-found.component';
 import { notesRoutes } from '../notes/notes.routes';
+import { Home } from './components/home';
 
-
-export const appRoutes = [
-  { path: '/', element: <HomeContainer /> },
-  ...[notesRoutes]
+const appRoutes = [
+  ...notesRoutes,
+  { path: '', element: <Home /> },
+  { path: '*', element: <NotFound /> }
 ];
+
+export const AppRoutes = () => {
+  return useRoutes(appRoutes);
+};

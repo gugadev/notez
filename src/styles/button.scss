@@ -1,0 +1,13 @@
+.btn {
+	height: 32px;
+	font-size: 14px;
+	border-radius: 4px;
+	padding: 0 10px;
+	font-family: 'Merriweather';
+
+	&--secondary {
+		background: #1abc9c;
+		border: 1px solid #1abc9c;
+		color: #fff;
+	}
+}

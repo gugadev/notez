@@ -1,0 +1,16 @@
+@import '../../../styles/button.scss';
+
+.app__header {
+	height: 60px;
+	background: #f7f7f7;
+	padding: 0 12px;
+	border-radius: 8px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	&__title {
+		color: #444;
+		font-family: 'Baloo Paaji 2';
+	}
+}

@@ -1,7 +1,11 @@
 import React from 'react';
+// @ts-ignore
+import { Outlet } from 'react-router-dom';
 
 export const NotesContainer = () => (
-  <article className="app__notesContainer">
-    <h1>Notes Page</h1>
-  </article>
+  <>
+    <article className="app__notesContainer">
+      <Outlet />
+    </article>
+  </>
 );

@@ -1,8 +1,21 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 // @ts-ignore
-import { useRoutes } from 'react-router-dom';
-import { appRoutes } from './app.routes';
+import { BrowserRouter } from 'react-router-dom';
+import { AppRoutes } from './app.routes';
+import { AppHeader } from './components/header';
+import store from '../../redux/store';
+import './app.container.scss';
 
 export const App = () => {
-  return useRoutes(appRoutes);
+  return (
+    <Provider store={store}>
+      <BrowserRouter>
+        <article className="app">
+          <AppHeader />
+          <AppRoutes />
+        </article>
+      </BrowserRouter>
+    </Provider>
+  );
 };

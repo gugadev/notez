@@ -1,12 +1,13 @@
 import { handleActions } from 'redux-actions';
 import { NotesState, Note, notesState } from './notes.state';
 import clone from 'lodash.clonedeep';
-import { FETCH_NOTES_LOADING, FETCH_NOTES_DONE, GET_NOTE_LOADING, GET_NOTE_DONE, CREATE_NOTE_LOADING, CREATE_NOTE_DONE, UPDATE_NOTE_LOADING, UPDATE_NOTE_DONE, FETCH_NOTES_ERROR } from './notes.constants';
+import { FETCH_NOTES_LOADING, FETCH_NOTES_DONE, GET_NOTE_LOADING, GET_NOTE_DONE, CREATE_NOTE_LOADING, CREATE_NOTE_DONE, UPDATE_NOTE_LOADING, UPDATE_NOTE_DONE } from './notes.constants';
 
 /*
  * FETCH NOTES HANDLERS
  */
 const fetchNotesLoadingHandler = (state: NotesState, action: any): NotesState => {
+  console.log(action);
   return {
     ...state,
     notesLoading: action.payload
@@ -76,9 +77,9 @@ const updateNoteDoneHandler = (state: NotesState, action: any): NotesState => {
   };
 };
 
-const removeNoteHandler = (state: any, action: any) => {
+// const removeNoteHandler = (state: any, action: any) => {
 
-};
+// };
 
 const notesErrorHandler = (state: NotesState, action: any) => {
   return {
