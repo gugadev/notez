@@ -1,8 +1,8 @@
-import { createEpicMiddleware } from "redux-observable";
+import { createEpicMiddleware, EpicMiddleware } from 'redux-observable';
 import { createLogger } from 'redux-logger';
-import { applyMiddleware, createStore, compose } from "redux";
-import rootReducer from "./reducers";
-import rootEpic from "./epics";
+import { applyMiddleware, createStore, compose } from 'redux';
+import { rootReducer } from './reducers';
+import { rootEpic } from './epics';
 
 declare global {
   interface Window {
@@ -16,8 +16,8 @@ const epicMiddleware = createEpicMiddleware();
 
 const getMiddleware = () => {
     const middlewares = [epicMiddleware];
-    if (process.env.NODE_ENV !== "production") {
-        middlewares.push(createLogger());
+    if (process.env.NODE_ENV !== 'production') {
+        middlewares.push(createLogger() as EpicMiddleware<any>);
     }
     return applyMiddleware(...middlewares);
 };

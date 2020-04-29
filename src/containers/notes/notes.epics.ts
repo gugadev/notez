@@ -60,7 +60,7 @@ const removeNote = (action$: any) => action$.pipe(
   )
 );
 
-export const noteEpics = combineEpics(
+export const notesEpics = combineEpics(
   fetchNotes,
   getNote,
   createNote,
