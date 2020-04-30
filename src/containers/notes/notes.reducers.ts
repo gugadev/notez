@@ -1,13 +1,21 @@
 import { handleActions } from 'redux-actions';
-import { NotesState, Note, notesState } from './notes.state';
 import clone from 'lodash.clonedeep';
-import { FETCH_NOTES_LOADING, FETCH_NOTES_DONE, GET_NOTE_LOADING, GET_NOTE_DONE, CREATE_NOTE_LOADING, CREATE_NOTE_DONE, UPDATE_NOTE_LOADING, UPDATE_NOTE_DONE } from './notes.constants';
+import { NotesState, Note, notesState } from './notes.state';
+import {
+  FETCH_NOTES_LOADING,
+  FETCH_NOTES_DONE,
+  GET_NOTE_LOADING,
+  GET_NOTE_DONE,
+  CREATE_NOTE_LOADING,
+  CREATE_NOTE_DONE,
+  UPDATE_NOTE_LOADING,
+  UPDATE_NOTE_DONE
+} from './notes.constants';
 
 /*
  * FETCH NOTES HANDLERS
  */
 const fetchNotesLoadingHandler = (state: NotesState, action: any): NotesState => {
-  console.log(action);
   return {
     ...state,
     notesLoading: action.payload
@@ -82,6 +90,7 @@ const updateNoteDoneHandler = (state: NotesState, action: any): NotesState => {
 // };
 
 const notesErrorHandler = (state: NotesState, action: any) => {
+  console.log('Error:', action);
   return {
     ...state,
     error: action.payload
@@ -92,15 +101,15 @@ export const notesReducers = handleActions(
   {
     [FETCH_NOTES_LOADING]: {
       next: fetchNotesLoadingHandler,
-      error: notesErrorHandler
+      throw: notesErrorHandler
     },
     [FETCH_NOTES_DONE]: {
       next: fetchNotesDoneHandler,
-      error: notesErrorHandler
+      throw: notesErrorHandler
     },
     [GET_NOTE_LOADING]: {
       next: getNoteLoadingHandler,
-      error: notesErrorHandler
+      throw: notesErrorHandler
     },
     [GET_NOTE_DONE]: {
       next: getNoteDoneHandler,
@@ -108,19 +117,19 @@ export const notesReducers = handleActions(
     },
     [CREATE_NOTE_LOADING]: {
       next: createNoteLoadingHandler,
-      error: notesErrorHandler
+      throw: notesErrorHandler
     },
     [CREATE_NOTE_DONE]: {
       next: createNoteDoneHandler,
-      error: notesErrorHandler
+      throw: notesErrorHandler
     },
     [UPDATE_NOTE_LOADING]: {
       next: updateNoteLoadingHandler,
-      error: notesErrorHandler
+      throw: notesErrorHandler
     },
     [UPDATE_NOTE_DONE]: {
       next: updateNoteDoneHandler,
-      error: notesErrorHandler
+      throw: notesErrorHandler
     }
   },
   notesState

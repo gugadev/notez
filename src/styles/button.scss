@@ -1,13 +1,15 @@
 .btn {
 	height: 32px;
-	font-size: 14px;
+	font-size: 15px;
 	border-radius: 4px;
 	padding: 0 10px;
-	font-family: 'Merriweather';
+	font-family: 'Baloo Paaji 2';
+	background: none;
+	border: none;
+	text-transform: uppercase;
+	font-weight: 600;
 
 	&--secondary {
-		background: #1abc9c;
-		border: 1px solid #1abc9c;
-		color: #fff;
+		color: #1abc9c;
 	}
 }

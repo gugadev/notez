@@ -14,3 +14,12 @@
 		font-family: 'Baloo Paaji 2';
 	}
 }
+
+@media (prefers-color-scheme: dark) {
+	.app__header {
+		background-color: #333;
+		&__title {
+			color: #bbb;
+		}
+	}
+}
