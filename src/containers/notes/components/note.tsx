@@ -1,28 +1,36 @@
 import React from 'react';
+//@ts-ignore 
+import { useNavigate } from 'react-router-dom';
+import { format } from 'date-fns';
 import { Note as INote } from '../notes.state';
 import './note.scss';
 
-const dateTimeToText = (dateTime: number) => {
-  const dt = new Date(dateTime);
-  const year = dt.getFullYear();
-  const month = dt.getMonth() + 1;
-  const day = dt.getDate();
-  const hour = dt.getHours();
-  const minutes = dt.getMinutes();
-  return `${day}/${month}/${year} ${hour}:${minutes}`;
+const timestampToDateString = (timestamp: number) => {
+  return format(new Date(timestamp), 'yyyy-MM-dd HH:mm:ss');
 };
 
-export const Note = ({ uid, title, date, content }: INote) => (
-  <article className="app__notesContainer__list__note" key={uid}>
-    <header className="app__notesContainer__list__note__title">
-      <h2>{title}</h2>
-      <p>
-        <span>Creado el:</span>
-        <time dateTime={date.toString()}>{dateTimeToText(date as number)}</time>
-      </p>
-    </header>
-    <section className="app__notesContainer__list__note__content">
-      { content }
-    </section>
-  </article>
-);
+export const Note = ({ uid, title, date, content }: INote) => {
+  const navigate = useNavigate();
+  const formattedDate = timestampToDateString(date as number);
+
+  const readNote = () => {
+    navigate(`/notes/${uid}`);
+  };
+
+  return (
+    <article className="app__notesContainer__list__note" key={uid}>
+      <header className="app__notesContainer__list__note__title">
+        <h2 onClick={readNote}>{title}</h2>
+        <p>
+          <span>Created at:</span>
+          <time dateTime={formattedDate}>
+            {formattedDate}
+          </time>
+        </p>
+      </header>
+      <section className="app__notesContainer__list__note__content">
+        { content }
+      </section>
+    </article>
+  );
+};

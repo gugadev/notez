@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, MutableRefObject } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { Input } from '../../../components/input';
 import { Button } from '../../../components/button';
 import { TextArea } from '../../../components/textarea';
 import { createNoteSchema } from './create-note-schema';
-import './create-note-form.scss';
 import { FieldError } from '../../../components/field-error';
+import { Toast, ToastElement } from '../../../components/toast';
 import { createNote } from '../notes.actions';
+import './create-note-form.scss';
 
 type Inputs = {
   title: string;
@@ -18,33 +19,43 @@ export const CreateNoteForm = () => {
   const { register, errors, reset, handleSubmit } = useForm<Inputs>({
     validationSchema: createNoteSchema
   });
+  const titleInputRef: MutableRefObject<HTMLInputElement | undefined> = useRef();
+  const toastRef: MutableRefObject<ToastElement | undefined> = useRef();
   const dispatch = useDispatch();
   const { createNoteLoading, note } = useSelector((state: Record<string, any>) => state.notes);
 
   const onSubmit = (data: Inputs) => {
-    console.log('Data:', data);
     dispatch(createNote(data));
   };
 
+  const onNotificationClose = () => {
+    reset();
+    titleInputRef.current?.focus();
+  }
+
   useEffect(() => {
-    console.log('Errors:', errors);
-  }, [errors]);
+    if (note) {
+      const { current } = toastRef;
+      current?.show();
+    }
+  }, [note]);
 
   return (
     <form className="app__createNoteContainer__createForm" onSubmit={handleSubmit(onSubmit)}>
       <article className="app__createNoteContainer__createForm__controls">
         <Input
           placeholder="The title of your note"
-          ref={register}
+          ref={(el: HTMLInputElement) => {
+            titleInputRef.current = el;
+            register(el);
+          }}
           name="title"
-          // invalid={errors.title && true}
         />
         { errors.title?.message && <FieldError>{errors.title?.message}</FieldError> }
         <TextArea
           placeholder="Write here the contents..."
           ref={register}
           name="content"
-          // invalid={errors.content && true}
         />
         { errors.content?.message && <FieldError>{errors.content?.message}</FieldError> }
       </article>
@@ -53,6 +64,13 @@ export const CreateNoteForm = () => {
           { createNoteLoading ? 'Creating note...' : 'Create note' }
         </Button>
       </footer>
+      <Toast
+        title="Note created"
+        message="Note created successfully. Create another or go back."
+        opStatus="success"
+        onClose={onNotificationClose}
+        ref={toastRef}
+      />
     </form>
   );
 };

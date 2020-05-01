@@ -1,8 +1,8 @@
 import React from 'react';
 import { NotesContainer } from './notes.container';
-import { NotesListContainer } from './list/notes-list.container';
-import { CreateNoteContainer } from './create/create-note.container';
-import { EditNoteContainer } from './edit/edit-note.container';
+import { NotesListContainer } from '../list-notes/notes-list.container';
+import { CreateNoteContainer } from '../create-note/create-note.container';
+import { EditNoteContainer } from '../edit-note/edit-note.container';
 
 export const notesRoutes = [
   {
@@ -11,7 +11,8 @@ export const notesRoutes = [
     children: [
       { path: '/', element: <NotesListContainer /> },
       { path: 'create', element: <CreateNoteContainer /> },
-      { path: ':id', element: <EditNoteContainer /> }
+      { path: ':id', element: <EditNoteContainer /> },
+      { path: 'edit/:id', element: <EditNoteContainer /> }
     ]
   }
 ];

@@ -1,0 +1,49 @@
+@import '../styles/variables.scss';
+
+.toast {
+	border-radius: 4px;
+	display: flex;
+	position: relative;
+	margin: 0 auto;
+	bottom: 40px;
+	background: #fff;
+	max-width: 90%;
+
+	&__closeBtn {
+		position: absolute;
+		top: 4px;
+		right: 8px;
+		color: #666;
+		cursor: pointer;
+		font-size: 24px;
+	}
+
+	&--success {
+		box-shadow: 0 0 16px 8px rgba(0, 0, 0, .1), 0 2px 0 0 $primary;
+	}
+	&--danger {
+		box-shadow: 0 0 16px 8px rgba(0, 0, 0, .1), 0 2px 0 0 $danger;
+	}
+	&--info {
+		box-shadow: 0 0 16px 8px rgba(0, 0, 0, .1), 0 2px 0 0 $info;
+	}
+
+	&__icon {
+		padding: 12px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	&__content {
+		padding: 12px;
+
+		&__title {
+			color: #444;
+		}
+		&__message {
+			color: #444;
+			font-size: 13px;
+			padding: 12px 0;
+		}
+	}
+}

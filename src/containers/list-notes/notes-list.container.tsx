@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchNotesLoading } from '../notes.actions';
-import { Note } from '../components/note';
+import { fetchNotes } from '../notes/notes.actions';
+import { Note } from '../notes/components/note';
 import './notes-list.container.scss'
 
 export const NotesListContainer = () => {
@@ -11,7 +11,7 @@ export const NotesListContainer = () => {
   useEffect(() => {
     // console.log('actual state:', state);
     console.log('Fetching notes...');
-    dispatch(fetchNotesLoading(true));
+    dispatch(fetchNotes());
   }, []);
 
   return (

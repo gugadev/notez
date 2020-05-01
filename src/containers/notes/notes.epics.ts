@@ -1,6 +1,6 @@
 import { ofType, combineEpics } from "redux-observable";
 import { of, merge } from "rxjs";
-import { switchMap, map, catchError } from "rxjs/operators";
+import { switchMap, map, catchError, finalize } from "rxjs/operators";
 import { CREATE_NOTE, FETCH_NOTES, GET_NOTE, UPDATE_NOTE } from "./notes.constants";
 import { fetchNotesDone, getNoteDone, createNoteDone, updateNoteDone, createNoteLoading, updateNoteLoading, fetchNotesLoading, getNoteLoading } from "./notes.actions";
 import * as NotesAPI from './notes.api';
@@ -28,7 +28,8 @@ const getNote = (action$: any) => action$.pipe(
     const loading = of(getNoteLoading());
     const request = NotesAPI.getNote(action.payload).pipe(
       map(getNoteDone),
-      catchError(err => of(getNoteDone(err)))
+      catchError(err => of(getNoteDone(err))),
+      // finalize()
     );
     return merge(loading, request);
   })

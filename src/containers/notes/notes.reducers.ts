@@ -18,14 +18,15 @@ import {
 const fetchNotesLoadingHandler = (state: NotesState, action: any): NotesState => {
   return {
     ...state,
-    notesLoading: action.payload
+    notesLoading: true
   };
 };
 
 const fetchNotesDoneHandler = (state: NotesState, action: any): NotesState => {
   return {
     ...state,
-    notes: action.payload
+    notes: action.payload,
+    notesLoading: false
   };
 };
 
@@ -35,14 +36,15 @@ const fetchNotesDoneHandler = (state: NotesState, action: any): NotesState => {
 const getNoteLoadingHandler = (state: NotesState, action: any): NotesState => {
   return {
     ...state,
-    getNoteLoading: action.payload,
+    getNoteLoading: true
   };
 };
 
 const getNoteDoneHandler = (state: NotesState, action: any): NotesState => {
   return {
     ...state,
-    note: action.payload
+    note: action.payload,
+    getNoteLoading: false
   };
 };
 
@@ -52,7 +54,7 @@ const getNoteDoneHandler = (state: NotesState, action: any): NotesState => {
 const createNoteLoadingHandler = (state: NotesState, action: any): NotesState => {
   return {
     ...state,
-    createNoteLoading: action.payload,
+    createNoteLoading: true
   };
 };
 
@@ -62,7 +64,8 @@ const createNoteDoneHandler = (state: NotesState, action: any): NotesState => {
   return {
     ...state,
     createNoteLoading: false,
-    notes
+    notes,
+    note: action.payload
   };
 };
 
@@ -72,7 +75,7 @@ const createNoteDoneHandler = (state: NotesState, action: any): NotesState => {
 const updateNoteLoadingHandler = (state: NotesState, action: any): NotesState => {
   return {
     ...state,
-    updateNoteLoading: action.payload,
+    updateNoteLoading: true,
   };
 };
 
