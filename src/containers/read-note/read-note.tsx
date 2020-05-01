@@ -1,7 +1,7 @@
 import React from 'react';
-import './read.scss';
+import './read-note.scss';
 
-export const ReadNote = () => {
+export const ReadNoteContainer = () => {
   return (
     <article className="app__notesContainer__readNote">
 
