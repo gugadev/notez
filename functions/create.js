@@ -16,7 +16,7 @@ exports.handle = async (event) => {
     date: Date.now()
   }
   try {
-    const note = await db.put({
+    await db.put({
       TableName: 'Notes',
       Item: newNote
     }).promise();

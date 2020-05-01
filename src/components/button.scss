@@ -1,3 +1,5 @@
+@import '../styles/variables.scss';
+
 .btn {
 	height: 32px;
 	font-size: 15px;
@@ -9,7 +11,12 @@
 	text-transform: uppercase;
 	font-weight: 600;
 
+	&--primary {
+		// color: #1abc9c;
+		color: $primary;
+	}
 	&--secondary {
-		color: #1abc9c;
+		// color: #f39c12;
+		color: $secondary;
 	}
 }

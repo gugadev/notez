@@ -1,8 +1,8 @@
 import { ofType, combineEpics } from "redux-observable";
-import { of } from "rxjs";
+import { of, merge } from "rxjs";
 import { switchMap, map, catchError } from "rxjs/operators";
-import { FETCH_NOTES_LOADING, GET_NOTE_LOADING, CREATE_NOTE_LOADING, UPDATE_NOTE_LOADING } from "./notes.constants";
-import { fetchNotesDone, getNoteDone, createNoteDone, updateNoteDone } from "./notes.actions";
+import { CREATE_NOTE, FETCH_NOTES, GET_NOTE, UPDATE_NOTE } from "./notes.constants";
+import { fetchNotesDone, getNoteDone, createNoteDone, updateNoteDone, createNoteLoading, updateNoteLoading, fetchNotesLoading, getNoteLoading } from "./notes.actions";
 import * as NotesAPI from './notes.api';
 
 interface Action {
@@ -11,43 +11,51 @@ interface Action {
 }
 
 const fetchNotes = (action$: any) => action$.pipe(
-  ofType(FETCH_NOTES_LOADING),
-  switchMap(() => 
-    NotesAPI.fetchNotes().pipe(
+  ofType(FETCH_NOTES),
+  switchMap(() => {
+    const loading = of(fetchNotesLoading());
+    const request = NotesAPI.fetchNotes().pipe(
       map(fetchNotesDone),
       catchError(err => of(fetchNotesDone(err)))
-    )
-  )
+    );
+    return merge(loading, request);
+  })
 );
 
 const getNote = (action$: any) => action$.pipe(
-  ofType(GET_NOTE_LOADING),
-  switchMap((action: Action) => 
-    NotesAPI.getNote(action.payload).pipe(
+  ofType(GET_NOTE),
+  switchMap((action: Action) => {
+    const loading = of(getNoteLoading());
+    const request = NotesAPI.getNote(action.payload).pipe(
       map(getNoteDone),
       catchError(err => of(getNoteDone(err)))
-    )
-  )
+    );
+    return merge(loading, request);
+  })
 );
 
 const createNote = (action$: any) => action$.pipe(
-  ofType(CREATE_NOTE_LOADING),
-  switchMap((action: Action) => 
-    NotesAPI.createNote(action.payload).pipe(
+  ofType(CREATE_NOTE),
+  switchMap((action: Action) => {
+    const loading = of(createNoteLoading());
+    const request = NotesAPI.createNote(action.payload).pipe(
       map(createNoteDone),
       catchError(err => of(createNoteDone(err)))
-    )
-  )
+    );
+    return merge(loading, request);
+  })
 );
 
 const updateNote = (action$: any) => action$.pipe(
-  ofType(UPDATE_NOTE_LOADING),
-  switchMap((action: Action) => 
-    NotesAPI.updateNote(action.payload.uid, action.payload.body).pipe(
+  ofType(UPDATE_NOTE),
+  switchMap((action: Action) => {
+    const loading = of(updateNoteLoading());
+    const request = NotesAPI.updateNote(action.payload.uid, action.payload.body).pipe(
       map(updateNoteDone),
       catchError(err => of(updateNoteDone(err)))
-    )
-  )
+    );
+    return merge(loading, request);
+  })
 );
 
 const removeNote = (action$: any) => action$.pipe(

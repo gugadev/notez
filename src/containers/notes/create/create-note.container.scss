@@ -1,0 +1,25 @@
+.app__createNoteContainer {
+	margin-top: 20px;
+	&__title {
+		padding: 12px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		h2 {
+			color: #444;
+			font-size: 'Merriweather';
+			margin: 0;
+		}
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	.app__createNoteContainer {
+		&__title {
+			h2 {
+				color: #aaa;
+			}
+		}
+	}
+}

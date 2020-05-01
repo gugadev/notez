@@ -1,0 +1,11 @@
+@import './input.scss';
+
+.textarea {
+	@extend .input;
+	padding: 12px;
+	line-height: 1.6;
+
+	&--invalid {
+		@extend .input--invalid;
+	}
+}

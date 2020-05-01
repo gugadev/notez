@@ -14,13 +14,13 @@ export const getNote = (uid: string): Observable<Note> => (
 );
 
 export const createNote = (body: Note): Observable<Note> => (
-  ajax.post(SERVER_URL, body).pipe(pluck('response'))
+  ajax.post(SERVER_URL, body, { 'Content-Type': 'application/json' }).pipe(pluck('response'))
 );
 
 export const updateNote = (uid: string, body: Note): Observable<Note> => (
-  ajax.put(`${SERVER_URL}/${uid}`, body).pipe(pluck('response'))
+  ajax.put(`${SERVER_URL}/${uid}`, body, { 'Content-Type': 'application/json' }).pipe(pluck('response'))
 );
 
 export const removeNote = (uid: string): Observable<Note> => (
-  ajax.put(`${SERVER_URL}/${uid}`).pipe(pluck('response'))
+  ajax.delete(`${SERVER_URL}/${uid}`).pipe(pluck('response'))
 );

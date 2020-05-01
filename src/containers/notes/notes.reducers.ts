@@ -61,6 +61,7 @@ const createNoteDoneHandler = (state: NotesState, action: any): NotesState => {
   notes.push(action.payload);
   return {
     ...state,
+    createNoteLoading: false,
     notes
   };
 };
@@ -81,6 +82,7 @@ const updateNoteDoneHandler = (state: NotesState, action: any): NotesState => {
   notes.splice(noteIndex, 1, action.payload);
   return {
     ...state,
+    updateNoteLoading: false,
     notes
   };
 };

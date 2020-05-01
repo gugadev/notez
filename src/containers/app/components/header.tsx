@@ -1,18 +1,50 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 // @ts-ignore
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Button } from '../../../components/button';
 import './header.scss';
 
 export const AppHeader = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [renderBackBtn, shouldRenderBackBtn] = useState(false);
+
+  useEffect(() => {
+    if (location.pathname !== '/notes') {
+      shouldRenderBackBtn(true);
+    } else {
+      shouldRenderBackBtn(false);
+    }
+  }, [location]);
+
+  const goToNotes = () => {
+    navigate('/notes');
+  };
 
   const goToCreateForm = () => {
     navigate('notes/create');
   };
+
   return (
     <header className="app__header">
       <h3 className="app__header__title">Notez App</h3>
-      <button className="btn btn--secondary" onClick={goToCreateForm}>Create Note</button>
+      {
+        renderBackBtn ? (
+          <Button
+            kind="secondary"
+            onClick={goToNotes}
+          >
+            Back
+          </Button>
+        ) : (
+          <Button
+            kind="secondary"
+            onClick={goToCreateForm}
+          >
+            Create Note
+          </Button>
+        )
+      }
     </header>
   )
 };

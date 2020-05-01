@@ -1,0 +1,16 @@
+@import '../styles/variables.scss';
+
+.input {
+	height: 44px;
+	border-radius: 4px;
+	background: #fff;
+	border: 1px solid #ddd;
+	font-size: 14px;
+	color: #444;
+	padding: 0 12px;
+
+	&--invalid {
+		border-color: $danger;
+		color: darken($danger, 25);
+	}
+}
