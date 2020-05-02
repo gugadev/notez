@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions';
-import { GET_NOTE_FETCHING, GET_NOTE_DONE, GET_NOTE_RESET } from './constants';
+import { GET_NOTE_FETCHING, GET_NOTE_DONE, GET_NOTE_RESET, GET_NOTE } from './constants';
 import { getNoteState, GetNoteState } from './state';
 
 const fetching = (state: GetNoteState, action: any): GetNoteState => {
@@ -36,6 +36,10 @@ const errorHandler = (state: GetNoteState, action: any): GetNoteState => {
 
 export const readNoteReducer = handleActions(
   {
+    [GET_NOTE]: {
+      next: state => state,
+      throw: errorHandler
+    },
     [GET_NOTE_FETCHING]: {
       next: fetching,
       throw: errorHandler

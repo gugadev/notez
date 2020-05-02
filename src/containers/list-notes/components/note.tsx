@@ -2,7 +2,7 @@ import React from 'react';
 //@ts-ignore 
 import { useNavigate } from 'react-router-dom';
 import { timestampToDateString } from '../../../lib/dates';
-import { Note as INote } from '../notes.state';
+import { Note as INote } from '../../../lib/entities';
 import './note.scss';
 
 export const Note = ({ uid, title, date, content }: INote) => {

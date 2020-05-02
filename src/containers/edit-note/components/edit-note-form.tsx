@@ -1,57 +1,68 @@
-import React, { useEffect, useRef, MutableRefObject } from 'react';
+import React, { FunctionComponent, MutableRefObject, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { Input } from '../../../components/input';
-import { Button } from '../../../components/button';
-import { TextArea } from '../../../components/textarea';
-import { createNoteSchema as validationSchema } from '../create-note-schema';
 import { FieldError } from '../../../components/field-error';
+import { Button } from '../../../components/button';
 import { Toast, ToastElement } from '../../../components/toast';
-import { createNote, createNoteReset } from '../actions';
+import { TextArea } from '../../../components/textarea';
+import { createNoteSchema as validationSchema } from '../../create-note/create-note-schema';
+import { updateNoteFetch, updateNoteReset } from '../actions';
+import { Loader } from '../../../components/loader';
 import { Store } from '../../../lib/entities';
-import './create-note-form.scss';
 
-type Inputs = {
+interface Fields {
   title: string;
   content: string;
-};
+}
 
-export const CreateNoteForm = () => {
-  const { sending, createdNote } = useSelector((state: Store) => ({
-    sending: state.createNote.sending,
-    createdNote: state.createNote.createdNote
-  }));
-  const { register, errors, reset, handleSubmit } = useForm<Inputs>({ validationSchema });
+export const EditNoteForm: FunctionComponent<void> = () => {
+  const { fetching, sending, note, updatedNote } = useSelector((state: Store) => ({
+    fetching: state.editNote.fetching,
+    sending: state.editNote.sending,
+    note: state.editNote.note,
+    updatedNote: state.editNote.updatedNote
+  }))
+  const { register, errors, handleSubmit, reset } = useForm<Fields>({
+    validationSchema,
+    defaultValues: {
+      title: note?.title,
+      content: note?.content
+    }
+  });
   // ref for the title input to force focus after close toast notification
   const titleInputRef: MutableRefObject<HTMLInputElement | undefined> = useRef();
   // ref for toast notification. Here you have show method.
   const toastRef: MutableRefObject<ToastElement | undefined> = useRef();
   const dispatch = useDispatch();
 
-  const onSubmit = (data: Inputs) => {
-    dispatch(createNote(data));
+  const onSubmit = (data: Fields) => {
+    console.log('Note:', data);
   };
 
   const onNotificationClose = () => {
     reset();
     titleInputRef.current?.focus();
-  };
+  }
 
   useEffect(() => {
+    dispatch(updateNoteFetch());
     return () => {
-      dispatch(createNoteReset());
+      dispatch(updateNoteReset());
     };
   }, []);
 
   useEffect(() => {
-    if (createdNote) {
+    if (updatedNote) {
       const { current } = toastRef;
       current?.show();
     }
-  }, [createdNote]);
+  }, [updatedNote]);
 
-  return (
-    <form className="app__createNoteContainer__createForm" onSubmit={handleSubmit(onSubmit)}>
+  return fetching ? (
+    <Loader show />
+  ) : (
+    <form onSubmit={handleSubmit(onSubmit)} className="app__editNoteContainer__form">
       <article className="app__createNoteContainer__createForm__controls">
         <Input
           placeholder="The title of your note"
@@ -75,8 +86,8 @@ export const CreateNoteForm = () => {
         </Button>
       </footer>
       <Toast
-        title="Note created"
-        message="Note created successfully. Create another or go back."
+        title="Note updated"
+        message="Note updated successfully. Create another or go back."
         opStatus="success"
         onClose={onNotificationClose}
         ref={toastRef}

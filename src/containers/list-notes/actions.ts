@@ -10,4 +10,4 @@ export const {
   LIST_NOTES,
   LIST_NOTES_FETCHING,
   LIST_NOTES_DONE
-)
+);

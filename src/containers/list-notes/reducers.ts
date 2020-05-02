@@ -1,11 +1,11 @@
 import { handleActions } from 'redux-actions';
-import { LIST_NOTES_FETCHING, LIST_NOTES_DONE } from './constants';
+import { LIST_NOTES_FETCHING, LIST_NOTES_DONE, LIST_NOTES } from './constants';
 import { ListNotesState, listNotesState } from './state';
 
 const fetching = (state: ListNotesState, action: any): ListNotesState => {
   return {
     ...state,
-    fetching: true
+    fetching: action.payload
   };
 };
 
@@ -22,11 +22,15 @@ const errorHandler = (state: ListNotesState, action: any) => {
     ...state,
     error: action.payload,
     fetching: false,
-  }
-}
+  };
+};
 
 export const listNotesReducer = handleActions(
   {
+    [LIST_NOTES]: {
+      next: state => state,
+      throw: errorHandler
+    },
     [LIST_NOTES_FETCHING]: {
       next: fetching,
       throw: errorHandler

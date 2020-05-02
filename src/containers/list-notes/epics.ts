@@ -1,21 +1,21 @@
 import { ofType, combineEpics } from "redux-observable";
-import { of, merge } from "rxjs";
-import { finalize, switchMap, catchError, map } from "rxjs/operators";
+import { of, concat } from "rxjs";
+import { switchMap, catchError, map } from "rxjs/operators";
 import { LIST_NOTES } from "./constants";
 import { listNotesFetching, listNotesDone } from "./actions";
 import * as NotesAPI from '../../lib/api';
 
 
-export const fetchNotes = (action$: any) => action$.pipe(
+const fetchNotes = (action$: any) => action$.pipe(
   ofType(LIST_NOTES),
   switchMap(() => {
-    const loading = of(listNotesFetching(true));
+    const fetching = of(listNotesFetching(true));
+    const fetchingEnds = of(listNotesFetching(false));
     const request = NotesAPI.fetchNotes().pipe(
       map(listNotesDone),
-      catchError(err => of(listNotesDone(err))),
-      finalize(() => of(listNotesFetching(false)))
+      catchError(err => of(listNotesDone(err)))
     );
-    return merge(loading, request);
+    return concat(fetching, request, fetchingEnds);
   })
 );
 

@@ -1,27 +1,26 @@
-import { ofType } from "redux-observable";
-import { of, merge } from "rxjs";
-import { finalize, switchMap, catchError, map } from "rxjs/operators";
-import * as NotesAPI from '../../lib/api';
+import { ofType, combineEpics } from "redux-observable";
+import { of, concat } from "rxjs";
+import { switchMap, catchError, map } from "rxjs/operators";
 import { CREATE_NOTE } from "./constants";
 import { createNoteSending, createNoteDone } from "./actions";
-import { combineReducers } from "redux";
+import * as NotesAPI from '../../lib/api';
 
 interface Action {
-  type: string,
-  payload: any
+  type: string;
+  payload: any;
 }
 
 const createNote = (action$: any) => action$.pipe(
   ofType(CREATE_NOTE),
   switchMap((action: Action) => {
     const sending = of(createNoteSending(true));
+    const sendingEnds = of(createNoteSending(false));
     const request = NotesAPI.createNote(action.payload).pipe(
       map(createNoteDone),
       catchError(err => of(createNoteDone(err))),
-      finalize(() => of(createNoteSending(true)))
     );
-    return merge(sending, request);
+    return concat(sending, request, sendingEnds);
   })
 );
 
-export const createNoteEpics = combineReducers(createNote);
+export const createNoteEpics = combineEpics(createNote);

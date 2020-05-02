@@ -1,20 +1,21 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { listNotes } from './actions';
-import { Note as INote, ListNotesState } from './state';
 import { Note } from './components/note';
 import { Loader } from '../../components/loader';
+import { Store } from '../../lib/entities';
 import './notes-list.scss'
 
 export const NotesListContainer = () => {
-  const state: ListNotesState = useSelector((state: Record<string, any>) => state.notes);
-  const { notes, fetching } = state;
+  const { notes, fetching } = useSelector((state: Store) => ({
+    notes: state.listNotes.notes,
+    fetching: state.listNotes.fetching
+  }));
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // console.log('actual state:', state);
     console.log('Fetching notes...');
-    dispatch(fetchNotes());
+    dispatch(listNotes());
   }, []);
 
   return (

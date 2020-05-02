@@ -1,6 +1,6 @@
 import { handleActions } from 'redux-actions';
 import { CreateNoteState, createNoteState } from "./state";
-import { CREATE_NOTE_SENDING, CREATE_NOTE_DONE, CREATE_NOTE_RESET } from './constants';
+import { CREATE_NOTE_SENDING, CREATE_NOTE_DONE, CREATE_NOTE_RESET, CREATE_NOTE } from './constants';
 
 const sending = (state: CreateNoteState, action: any): CreateNoteState => {
   return {
@@ -29,12 +29,17 @@ const errorHandler = (state: CreateNoteState, action: any): CreateNoteState => {
   console.log('Error:', action);
   return {
     ...state,
+    sending: false,
     error: action.payload
-  }
+  };
 };
 
 export const createNoteReducer = handleActions(
   {
+    [CREATE_NOTE]: {
+      next: state => state,
+      throw: errorHandler
+    },
     [CREATE_NOTE_SENDING]: {
       next: sending,
       throw: errorHandler

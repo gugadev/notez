@@ -1,5 +1,5 @@
-import { UPDATE_NOTE_FETCHING, UPDATE_NOTE_DONE, UPDATE_NOTE_RESET, UPDATE_NOTE_FETCHED, UPDATE_NOTE_SENDING } from './constants';
 import { handleActions } from 'redux-actions';
+import { UPDATE_NOTE_FETCHING, UPDATE_NOTE_DONE, UPDATE_NOTE_RESET, UPDATE_NOTE_FETCHED, UPDATE_NOTE_SENDING, UPDATE_NOTE } from './constants';
 import { EditNoteState, editNoteState } from './state';
 
 const fetching = (state: EditNoteState, action: any): EditNoteState => {
@@ -13,8 +13,8 @@ const fetched = (state: EditNoteState, action: any): EditNoteState => {
   return {
     ...state,
     note: action.payload
-  }
-}
+  };
+};
 
 const sending = (state: EditNoteState, action: any): EditNoteState => {
   return {
@@ -44,12 +44,18 @@ const errorHandler = (state: EditNoteState, action: any): EditNoteState => {
   console.log('Error:', action);
   return {
     ...state,
+    fetching: false,
+    sending: false,
     error: action.payload
   }
 };
 
 export const editNoteReducer = handleActions(
   {
+    [UPDATE_NOTE]: {
+      next: state => state,
+      throw: errorHandler
+    },
     [UPDATE_NOTE_FETCHING]: {
       next: fetching,
       throw: errorHandler

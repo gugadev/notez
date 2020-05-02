@@ -1,21 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector, } from 'react-redux';
 // @ts-ignore
 import { useParams, useNavigate } from 'react-router-dom';
-import { NotesState } from '../notes/notes.state';
-import { getNote, getNoteReset } from '../notes/notes.actions';
-import { timestampToDateString } from '../../lib/dates';
 import { Button } from '../../components/button';
 import { Loader } from '../../components/loader';
+import { getNote, getNoteReset } from './actions';
+import { timestampToDateString } from '../../lib/dates';
+import { Store } from '../../lib/entities';
 import './read-note.scss';
 
 export const ReadNoteContainer = () => {
-  const state: NotesState = useSelector((state: Record<string, any>) => state.notes);
+  const { fetching, note } = useSelector((state: Store) => ({
+    fetching: state.readNote.fetching,
+    note: state.readNote.note
+  }));
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const { getNoteLoading, note } = state;
   const formattedDate = timestampToDateString(note?.date || 0);
 
   const goToEdit = () => {
@@ -23,7 +25,7 @@ export const ReadNoteContainer = () => {
   };
 
   useEffect(() => {
-    dispatch(getNote(id))
+    dispatch(getNote(id));
 
     return () => {
       dispatch(getNoteReset());
@@ -33,7 +35,7 @@ export const ReadNoteContainer = () => {
   return (
     <article className="app__notesContainer__readNote">
       {
-        getNoteLoading ? (
+        fetching ? (
           <Loader show />
         ) : (
           <>

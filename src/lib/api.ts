@@ -1,7 +1,7 @@
 import { Observable } from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { pluck } from "rxjs/operators";
-import { Note } from "./notes.state";
+import { Note } from "./entities";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL as string;
 
