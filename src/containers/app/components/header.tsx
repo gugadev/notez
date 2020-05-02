@@ -17,8 +17,8 @@ export const AppHeader = () => {
     }
   }, [location]);
 
-  const goToNotes = () => {
-    navigate('/notes');
+  const goBack = () => {
+    navigate(-1);
   };
 
   const goToCreateForm = () => {
@@ -32,7 +32,7 @@ export const AppHeader = () => {
         renderBackBtn ? (
           <Button
             kind="secondary"
-            onClick={goToNotes}
+            onClick={goBack}
           >
             Back
           </Button>

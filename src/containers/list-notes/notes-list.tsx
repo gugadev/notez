@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchNotes } from '../notes/notes.actions';
-import { Note as INote } from '../notes/notes.state';
+import { Note as INote, NotesState } from '../notes/notes.state';
 import { Note } from '../notes/components/note';
 import './notes-list.scss'
+import { Loader } from '../../components/loader';
 
 export const NotesListContainer = () => {
-  const state = useSelector((state: Record<string, any>) => state.notes);
-  const notes: INote[] = state.notes;
+  const state: NotesState = useSelector((state: Record<string, any>) => state.notes);
+  const { notes, notesLoading } = state;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -18,15 +19,19 @@ export const NotesListContainer = () => {
 
   return (
     <article className="app__notesContainer__list">
-      { notes?.map(note => 
-        <Note
-          key={note.uid}
-          uid={note.uid}
-          title={note.title}
-          content={note.content}
-          date={note.date}
-        />
-      ) }
+      { notesLoading ? (
+        <Loader show />
+      ) : <>
+        { notes?.map(note => 
+          <Note
+            key={note.uid}
+            uid={note.uid}
+            title={note.title}
+            content={note.content}
+            date={note.date}
+          />
+        ) }
+      </> }
     </article>
   );
 };
