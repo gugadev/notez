@@ -1,5 +1,5 @@
 import React from 'react';
-import { CreateNoteForm } from '../notes/components/create-note-form';
+import { CreateNoteForm } from './components/create-note-form';
 import './create-note.scss';
 
 export const CreateNoteContainer = () => (

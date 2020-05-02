@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { Input } from '../../../components/input';
 import { Button } from '../../../components/button';
 import { TextArea } from '../../../components/textarea';
-import { createNoteSchema } from './create-note-schema';
+import { createNoteSchema } from '../create-note-schema';
 import { FieldError } from '../../../components/field-error';
 import { Toast, ToastElement } from '../../../components/toast';
 import { createNote } from '../notes.actions';

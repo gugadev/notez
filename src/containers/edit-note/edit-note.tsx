@@ -1,7 +1,11 @@
 import React from 'react';
 
+
 export const EditNoteContainer = () => (
   <article className="app__editNoteContainer">
-    <h1>Edit Note Page</h1>
+    <header className="app__editNoteContainer__title">
+      <h2>Edit Note</h2>
+    </header>
+    
   </article>
 );
