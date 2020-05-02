@@ -1,7 +1,7 @@
 .app__notesContainer__list__note {
 	margin: 12px 0;
 	border-radius: 8px;
-	box-shadow: 0 2px 8px 1px rgba(0, 0, 0, .2);
+	// box-shadow: 0 2px 8px 1px rgba(0, 0, 0, .2);
 	background: #fff;
 	padding: 12px;
 
@@ -15,7 +15,7 @@
 			cursor: pointer;
 		}
 		p {
-			color: #444;
+			color: #555;
 			display: flex;
 			justify-content: space-between;
 			font-size: 13px;

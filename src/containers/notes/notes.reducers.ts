@@ -118,7 +118,7 @@ export const notesReducers = handleActions(
     },
     [GET_NOTE_DONE]: {
       next: getNoteDoneHandler,
-      error: notesErrorHandler
+      throw: notesErrorHandler
     },
     [CREATE_NOTE_LOADING]: {
       next: createNoteLoadingHandler,

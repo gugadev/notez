@@ -1,0 +1,49 @@
+.app__notesContainer__readNote {
+	margin-top: 24px;
+
+	&__title {
+		h2 {
+			color: #444;
+			text-align: center;
+			line-height: 1.5;
+		}
+		p {
+			color: #555;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 12px;
+			font-size: 13px;
+		}
+	}
+	&__content {
+		padding: 12px;
+
+		p,
+		pre {
+			font-size: 16px;
+			color: #444;
+			line-height: 1.8;
+			text-align: justify;
+		}
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	.app__notesContainer__readNote {
+		&__title {
+			h2 {
+				color: #aaa;
+			}
+			p {
+				color: #aaa;
+			}
+		}
+		&__content {
+			p,
+			pre {
+				color: #aaa;
+			}
+		}
+	}
+}

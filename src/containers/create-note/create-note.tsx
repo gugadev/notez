@@ -1,6 +1,6 @@
 import React from 'react';
-import './create-note.container.scss';
 import { CreateNoteForm } from '../notes/components/create-note-form';
+import './create-note.scss';
 
 export const CreateNoteContainer = () => (
   <article className="app__createNoteContainer">

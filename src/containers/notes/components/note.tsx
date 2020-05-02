@@ -1,17 +1,13 @@
 import React from 'react';
 //@ts-ignore 
 import { useNavigate } from 'react-router-dom';
-import { format } from 'date-fns';
+import { timestampToDateString } from '../../../lib/dates';
 import { Note as INote } from '../notes.state';
 import './note.scss';
 
-const timestampToDateString = (timestamp: number) => {
-  return format(new Date(timestamp), 'yyyy-MM-dd HH:mm:ss');
-};
-
 export const Note = ({ uid, title, date, content }: INote) => {
-  const navigate = useNavigate();
   const formattedDate = timestampToDateString(date as number);
+  const navigate = useNavigate();
 
   const readNote = () => {
     navigate(`/notes/${uid}`);
