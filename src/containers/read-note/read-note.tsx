@@ -3,7 +3,7 @@ import { useDispatch, useSelector, } from 'react-redux';
 // @ts-ignore
 import { useParams } from 'react-router-dom';
 import { NotesState } from '../notes/notes.state';
-import { getNote } from '../notes/notes.actions';
+import { getNote, getNoteReset } from '../notes/notes.actions';
 import { timestampToDateString } from '../../lib/dates';
 import './read-note.scss';
 
@@ -12,12 +12,15 @@ export const ReadNoteContainer = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  console.log(state);
   const { getNoteLoading, note } = state;
   const formattedDate = timestampToDateString(note?.date || 0);
 
   useEffect(() => {
     dispatch(getNote(id))
+
+    return () => {
+      dispatch(getNoteReset());
+    }
   }, []);
 
   return (

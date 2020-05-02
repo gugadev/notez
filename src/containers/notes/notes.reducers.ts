@@ -9,7 +9,10 @@ import {
   CREATE_NOTE_LOADING,
   CREATE_NOTE_DONE,
   UPDATE_NOTE_LOADING,
-  UPDATE_NOTE_DONE
+  UPDATE_NOTE_DONE,
+  GET_NOTE_RESET,
+  CREATE_NOTE_RESET,
+  UPDATE_NOTE_RESET
 } from './notes.constants';
 
 /*
@@ -48,6 +51,13 @@ const getNoteDoneHandler = (state: NotesState, action: any): NotesState => {
   };
 };
 
+const getNoteReset = (state: NotesState): NotesState => {
+  return {
+    ...state,
+    note: null
+  };
+};
+
 /*
  * CREATE NOTE HANDLERS
  */
@@ -66,6 +76,13 @@ const createNoteDoneHandler = (state: NotesState, action: any): NotesState => {
     createNoteLoading: false,
     notes,
     note: action.payload
+  };
+};
+
+const createNoteReset = (state: NotesState): NotesState => {
+  return {
+    ...state,
+    note: null
   };
 };
 
@@ -90,9 +107,12 @@ const updateNoteDoneHandler = (state: NotesState, action: any): NotesState => {
   };
 };
 
-// const removeNoteHandler = (state: any, action: any) => {
-
-// };
+const updateNoteReset = (state: NotesState): NotesState => {
+  return {
+    ...state,
+    note: null
+  };
+};
 
 const notesErrorHandler = (state: NotesState, action: any) => {
   console.log('Error:', action);
@@ -120,12 +140,20 @@ export const notesReducers = handleActions(
       next: getNoteDoneHandler,
       throw: notesErrorHandler
     },
+    [GET_NOTE_RESET]: {
+      next: getNoteReset,
+      throw: notesErrorHandler
+    },
     [CREATE_NOTE_LOADING]: {
       next: createNoteLoadingHandler,
       throw: notesErrorHandler
     },
     [CREATE_NOTE_DONE]: {
       next: createNoteDoneHandler,
+      throw: notesErrorHandler
+    },
+    [CREATE_NOTE_RESET]: {
+      next: createNoteReset,
       throw: notesErrorHandler
     },
     [UPDATE_NOTE_LOADING]: {
@@ -135,7 +163,11 @@ export const notesReducers = handleActions(
     [UPDATE_NOTE_DONE]: {
       next: updateNoteDoneHandler,
       throw: notesErrorHandler
-    }
+    },
+    [UPDATE_NOTE_RESET]: {
+      next: updateNoteReset,
+      throw: notesErrorHandler
+    },
   },
   notesState
 );
