@@ -1,5 +1,6 @@
 .app__notesContainer__readNote {
 	margin-top: 24px;
+	width: calc(100vw - 24px);
 
 	&__title {
 		h2 {

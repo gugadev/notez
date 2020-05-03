@@ -6,6 +6,7 @@ import { AppRoutes } from './app.routes';
 import { AppHeader } from './components/header';
 import store from '../../redux/store';
 import './app.container.scss';
+import { AnimatePresence } from 'framer-motion';
 
 export const App = () => {
   return (
@@ -13,7 +14,9 @@ export const App = () => {
       <BrowserRouter>
         <article className="app">
           <AppHeader />
-          <AppRoutes />
+          <AnimatePresence>
+            <AppRoutes />
+          </AnimatePresence>
         </article>
       </BrowserRouter>
     </Provider>

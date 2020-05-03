@@ -1,5 +1,7 @@
 .app__createNoteContainer {
 	margin-top: 20px;
+	width: calc(100vw - 24px);
+
 	&__title {
 		padding: 12px;
 		display: flex;

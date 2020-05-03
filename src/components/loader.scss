@@ -4,9 +4,11 @@
 	position: fixed;
 	width: 4rem;
 	height: 4rem;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
+	left: calc(50vw - 2rem);
+	top: calc(50vh - 6rem);
+	// left: 50%;
+	// top: 50%;
+	// transform: translate(-50%, -50%);
 
 	&__spin {
 		display: block;
