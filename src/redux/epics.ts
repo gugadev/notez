@@ -8,5 +8,5 @@ export const rootEpic = combineEpics(
   listNotesEpics,
   readNoteEpics,
   createNoteEpics,
-  // updateNoteEpics
+  updateNoteEpics
 );

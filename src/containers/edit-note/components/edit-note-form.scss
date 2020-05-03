@@ -1,0 +1,38 @@
+.app__createNoteContainer__editForm {
+	margin-top: 32px;
+
+	&__controls {
+		margin-top: 12px;
+
+		input,
+		textarea,
+		select {
+			width: 100%;
+		}
+		textarea {
+			height: 250px;
+			margin-top: 12px;
+		}
+	}
+	&__actions {
+		display: flex;
+		justify-content: flex-end;
+		padding: 16px 12px;
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	.app__createNoteContainer__editForm {
+		margin-top: 20px;
+
+		&__controls {
+			input,
+			textarea {
+				background: #131313;
+				border-color: #131313;
+				box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .75) inset;
+				color: #aaa;
+			}
+		}
+	}
+}
