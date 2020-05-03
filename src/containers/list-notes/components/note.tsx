@@ -14,9 +14,14 @@ export const Note = ({ uid, title, date, content }: INote) => {
   };
 
   return (
-    <article className="app__notesContainer__list__note" key={uid}>
+    <article
+      role="button"
+      className="app__notesContainer__list__note"
+      key={uid}
+      onClick={readNote}
+    >
       <header className="app__notesContainer__list__note__title">
-        <h2 onClick={readNote}>{title}</h2>
+        <h2 >{title}</h2>
         <p>
           <span>Created at:</span>
           <time dateTime={formattedDate}>
